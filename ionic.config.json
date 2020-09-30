@@ -1,5 +1,7 @@
 {
   "name": "currency-tracker",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

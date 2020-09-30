@@ -13,7 +13,6 @@ export class Tab2Page {
   currencies: string[];
   bitcoinInfo: CoinInfo;
 
-
   constructor(private coingeckoService: CoingeckoService) {
     this.getVsCurrencies();
   }

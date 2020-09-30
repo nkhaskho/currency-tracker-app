@@ -10,7 +10,8 @@
 
 <ion-content>
 
-  <ion-grid *ngIf="bitcoinInfo ; else loading">
+  <ion-grid *ngIf="bitcoinInfo">
+
     <br>
     <ion-row justify-content-center>
       <ion-col>
@@ -51,6 +52,7 @@
         </div>
       </ion-col>
     </ion-row>
+
     <br>
     <ion-row justify-content-center class="ion-mergin-vertical">
       <ion-col class="ion-text-center">
@@ -59,7 +61,6 @@
         </ion-button>
       </ion-col>
     </ion-row>
-
 
   </ion-grid>
 

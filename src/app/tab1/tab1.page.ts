@@ -11,10 +11,8 @@ export class Tab1Page {
 
   coinsIds: string[] = ["bitcoin", "coindeal-token", "coincome", "usat", "usda"];
   currencies: string[];
-
   selectedCoinId: string = "coindeal-token"
   vsCurrency: string = "usd";
-
   vsCurrencyInfo: CoinInfo;
 
   constructor(private coingeckoService: CoingeckoService) {
