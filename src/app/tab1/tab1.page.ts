@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CoinInfo } from '../interfaces/coin-info';
 import { CoingeckoService } from '../services/coingecko-service';
 
 @Component({
@@ -8,30 +9,33 @@ import { CoingeckoService } from '../services/coingecko-service';
 })
 export class Tab1Page {
 
-  selectedVsCurrency: string = "USD";
-  selectedIds: string = "EUR";
-  coins: string[];
+  coinsIds: string[] = ["coindeal-token", "coincome", "bitcoin"];
+  currencies: string[];
 
+  selectedCoinId: string = "coindeal-token"
+  vsCurrency: string = "usd";
+
+  targetCurrencyInfo: CoinInfo;
 
   constructor(private coingeckoService: CoingeckoService) {
-    this.coins = coingeckoService.COINS;
+    this.getVsCurrencies();
   }
 
-  ngOnInit(){}
-
-  async getData(){
-    let data = await this.getCoingeckoInfo();
-    return data[0];
+  async ngOnInit(){
+    this.callCoingeckoService();
   }
 
   getCoingeckoInfo(){
-    return this.coingeckoService.getCurrencyInfo(this.selectedVsCurrency, this.selectedIds).toPromise()
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      return [];
-    })
+    return this.coingeckoService.getCurrencyInfo(this.vsCurrency, this.selectedCoinId).toPromise();
+  }
+
+  async getVsCurrencies(){
+    this.currencies = await this.coingeckoService.getSupportedVsCurrencies().toPromise();
+  }
+
+  async callCoingeckoService(){
+    let data = await this.getCoingeckoInfo();
+    this.targetCurrencyInfo = data[0];
   }
 
 }

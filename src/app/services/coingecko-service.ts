@@ -7,15 +7,17 @@ import { CoinInfo } from '../interfaces/coin-info';
 })
 export class CoingeckoService {
 
-  COINGECKO_API_URL = "https://api.coingecko.com/api/v3/coins/markets";
-
-  COINS = ["usd", "eur", "gpb"];
+  COINGECKO_API_URL = "https://api.coingecko.com/api/v3";
 
   constructor(private httpClient: HttpClient) { }
 
+  getSupportedVsCurrencies(){
+    return this.httpClient.get<string[]>(this.COINGECKO_API_URL + "/simple/supported_vs_currencies")
+  }
+
   getCurrencyInfo(vsCurrency: string, ids: string){
-    let requestParams = `?vs_currency=${vsCurrency}&ids=${ids}`
-    return this.httpClient.get<CoinInfo[]>(this.COINGECKO_API_URL+requestParams);
+    let requestParams = `/coins/markets?vs_currency=${vsCurrency}&ids=${ids}`
+    return this.httpClient.get<CoinInfo[]>(this.COINGECKO_API_URL + requestParams);
   }
 
 }

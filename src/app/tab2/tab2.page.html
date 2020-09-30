@@ -17,7 +17,7 @@
         <ion-item>
           <ion-label>VS Currency : </ion-label>
           <ion-select [(ngModel)]="vsCurrency" (ionChange)="callCoingeckoService()">
-            <ion-select-option *ngFor="let coin of coins" value="{{coin.toUpperCase()}}">{{coin.toUpperCase()}}</ion-select-option>
+            <ion-select-option *ngFor="let currency of currencies" value="{{currency.toUpperCase()}}">{{currency.toUpperCase()}}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>

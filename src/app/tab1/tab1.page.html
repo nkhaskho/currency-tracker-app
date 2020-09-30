@@ -1,11 +1,76 @@
 <ion-header>
   <ion-toolbar color="secondary">
-    <ion-title>Currency</ion-title>
+    <ion-grid>
+      <ion-row justify-content-center>
+        <ion-title>Currency</ion-title>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  
-  
+
+  <ion-grid *ngIf="targetCurrencyInfo ; else loading">
+    
+    <br>
+    <ion-row justify-content-center>
+      <ion-col>
+        <ion-item>
+          <ion-label>Coin Id : </ion-label>
+          <ion-select [(ngModel)]="selectedCoinId" (ionChange)="callCoingeckoService()">
+            <ion-select-option *ngFor="let coinId of coinsIds" value="{{coinId}}">{{coinId.toUpperCase()}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <br>
+    <ion-row justify-content-center>
+      <ion-col>
+        <ion-item>
+          <ion-label>VS Currency : </ion-label>
+          <ion-select [(ngModel)]="vsCurrency" (ionChange)="callCoingeckoService()">
+            <ion-select-option *ngFor="let currency of currencies" value="{{currency}}">{{currency.toUpperCase()}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row justify-content-center>
+      <ion-col>
+        <br>
+        <ion-img style="height: 100px;" src='{{targetCurrencyInfo.image}}'></ion-img>
+      </ion-col>
+    </ion-row>
+
+    <ion-row justify-content-center>
+      <ion-col>
+        <div class="ion-text-center">
+          <h3>{{selectedCoinId.toUpperCase()}}: {{targetCurrencyInfo.current_price}} {{vsCurrency.toUpperCase()}} </h3>
+          <div *ngIf="targetCurrencyInfo.price_change_percentage_24h > 0">
+            <ion-icon color="success" name="arrow-up-circle"></ion-icon>
+            <h6 class="success">Up by {{targetCurrencyInfo.price_change_percentage_24h}}% (last 24 Hours)</h6>
+          </div>
+          <div *ngIf="targetCurrencyInfo.price_change_percentage_24h <= 0">
+            <ion-icon color="danger" name="arrow-down-circle"></ion-icon>
+            <h6 color="danger">{{targetCurrencyInfo.price_change_percentage_24h}}% </h6>
+          </div>
+          <div>
+            <h6>The current circulating supply is {{targetCurrencyInfo.circulating_supply}} coin.</h6>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row justify-content-center class="ion-mergin-vertical">
+      <ion-col class="ion-text-center">
+        <ion-button fill="outline" color="secondary" shape="round" (click)="callCoingeckoService()">
+          <ion-icon slot="icon-only" name="refresh"></ion-icon>Refresh
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
 
 </ion-content>

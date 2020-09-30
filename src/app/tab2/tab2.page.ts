@@ -10,17 +10,21 @@ import { CoingeckoService } from '../services/coingecko-service';
 export class Tab2Page {
 
   vsCurrency: string = "USD";
-  coins: string[];
+  currencies: string[];
   bitcoinInfo: CoinInfo;
 
 
   constructor(private coingeckoService: CoingeckoService) {
-    this.coins = coingeckoService.COINS;
+    this.getVsCurrencies();
   }
 
   async ngOnInit(){
     this.callCoingeckoService();
     console.log(this.bitcoinInfo);
+  }
+
+  async getVsCurrencies(){
+    this.currencies = await this.coingeckoService.getSupportedVsCurrencies().toPromise();
   }
 
   getCoingeckoInfo(){
