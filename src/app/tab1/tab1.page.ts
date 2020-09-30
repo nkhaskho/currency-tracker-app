@@ -9,13 +9,13 @@ import { CoingeckoService } from '../services/coingecko-service';
 })
 export class Tab1Page {
 
-  coinsIds: string[] = ["coindeal-token", "coincome", "bitcoin"];
+  coinsIds: string[] = ["bitcoin", "coindeal-token", "coincome", "usat", "usda"];
   currencies: string[];
 
   selectedCoinId: string = "coindeal-token"
   vsCurrency: string = "usd";
 
-  targetCurrencyInfo: CoinInfo;
+  vsCurrencyInfo: CoinInfo;
 
   constructor(private coingeckoService: CoingeckoService) {
     this.getVsCurrencies();
@@ -35,7 +35,7 @@ export class Tab1Page {
 
   async callCoingeckoService(){
     let data = await this.getCoingeckoInfo();
-    this.targetCurrencyInfo = data[0];
+    this.vsCurrencyInfo = data[0];
   }
 
 }

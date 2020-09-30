@@ -26,29 +26,32 @@
     <ion-row justify-content-center>
       <ion-col>
         <br>
-        <ion-img style="height: 100px;" src='{{bitcoinInfo.image}}'></ion-img>
+        <ion-img style="height: 80px;" src='{{bitcoinInfo.image}}'></ion-img>
       </ion-col>
     </ion-row>
 
     <ion-row justify-content-center>
       <ion-col>
         <div class="ion-text-center">
-          <h3>BTC: {{bitcoinInfo.current_price}} {{vsCurrency}} </h3>
+          <h4>BITCOIN</h4>
+          <h5>{{bitcoinInfo.current_price}} {{vsCurrency}}</h5>
           <div *ngIf="bitcoinInfo.price_change_percentage_24h > 0">
             <ion-icon color="success" name="arrow-up-circle"></ion-icon>
-            <h6 class="success">Up by {{bitcoinInfo.price_change_percentage_24h}}% (last 24 Hours)</h6>
+            <h6 class="success">Up by {{bitcoinInfo.price_change_percentage_24h}}% (<small>last 24 Hours</small>)</h6>
           </div>
           <div *ngIf="bitcoinInfo.price_change_percentage_24h <= 0">
             <ion-icon color="danger" name="arrow-down-circle"></ion-icon>
             <h6 color="danger">{{bitcoinInfo.price_change_percentage_24h}}% </h6>
           </div>
+          <br>
           <div>
-            <h6>The current circulating supply is {{bitcoinInfo.circulating_supply}} coin.</h6>
+            <h6>Current Circulating supply</h6>
+            <h5>{{bitcoinInfo.circulating_supply}} coin</h5>
           </div>
         </div>
       </ion-col>
     </ion-row>
-
+    <br>
     <ion-row justify-content-center class="ion-mergin-vertical">
       <ion-col class="ion-text-center">
         <ion-button fill="outline" color="warning" shape="round" (click)="callCoingeckoService()">
