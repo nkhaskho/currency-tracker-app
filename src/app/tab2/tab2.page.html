@@ -18,7 +18,9 @@
         <ion-item>
           <ion-label>VS Currency : </ion-label>
           <ion-select [(ngModel)]="vsCurrency" (ionChange)="callCoingeckoService()">
-            <ion-select-option *ngFor="let currency of currencies" value="{{currency.toUpperCase()}}">{{currency.toUpperCase()}}</ion-select-option>
+            <ion-select-option *ngFor="let currency of currencies" value="{{currency}}">
+              {{currency.toUpperCase()}}
+            </ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
@@ -27,27 +29,36 @@
     <ion-row justify-content-center>
       <ion-col>
         <br>
-        <ion-img style="height: 80px;" src='{{bitcoinInfo.image}}'></ion-img>
+        <ion-img style="height: 60px;" src='{{bitcoinInfo.image}}'></ion-img>
       </ion-col>
     </ion-row>
 
     <ion-row justify-content-center>
       <ion-col>
         <div class="ion-text-center">
-          <h4>BITCOIN</h4>
-          <h5>{{bitcoinInfo.current_price}} {{vsCurrency}}</h5>
+          <div>
+            <ion-text color="dark"><strong>1 BITCOIN</strong></ion-text><br>
+            <ion-text color="primary">{{bitcoinInfo.current_price}} {{vsCurrency.toUpperCase()}}</ion-text>
+          </div>
+          <br>
           <div *ngIf="bitcoinInfo.price_change_percentage_24h > 0">
             <ion-icon color="success" name="arrow-up-circle"></ion-icon>
-            <h6 class="success">Up by {{bitcoinInfo.price_change_percentage_24h}}% (<small>last 24 Hours</small>)</h6>
+            <ion-text color="success">
+              Up by {{bitcoinInfo.price_change_percentage_24h}}%
+            </ion-text><br>
+            <ion-text><small>(last 24 Hours)</small></ion-text>
           </div>
           <div *ngIf="bitcoinInfo.price_change_percentage_24h <= 0">
             <ion-icon color="danger" name="arrow-down-circle"></ion-icon>
-            <h6 color="danger">{{bitcoinInfo.price_change_percentage_24h}}% </h6>
+            <ion-text color="danger">
+              Down by {{bitcoinInfo.price_change_percentage_24h}}%
+            </ion-text><br>
+            <ion-text><small>(last 24 Hours)</small></ion-text>
           </div>
           <br>
           <div>
-            <h6>Current Circulating supply</h6>
-            <h5>{{bitcoinInfo.circulating_supply}} coin</h5>
+            <ion-text><small>Current Circulating supply</small></ion-text><br>
+            <ion-text>{{bitcoinInfo.circulating_supply}}</ion-text><br>
           </div>
         </div>
       </ion-col>
@@ -57,7 +68,7 @@
     <ion-row justify-content-center class="ion-mergin-vertical">
       <ion-col class="ion-text-center">
         <ion-button fill="outline" color="warning" shape="round" (click)="callCoingeckoService()">
-          <ion-icon slot="icon-only" name="refresh"></ion-icon>Refresh
+          <ion-icon slot="start" name="refresh"></ion-icon>Refresh
         </ion-button>
       </ion-col>
     </ion-row>

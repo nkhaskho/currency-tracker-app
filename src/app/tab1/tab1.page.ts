@@ -9,11 +9,13 @@ import { CoingeckoService } from '../services/coingecko-service';
 })
 export class Tab1Page {
 
-  coinsIds: string[] = ["bitcoin", "coindeal-token", "coincome", "usat", "usda"];
+  coinsIds: string[] = ["bitcoin", "litecoin", "coindeal-token", "coincome", "usda"];
   currencies: string[];
+  vsCurrencyInfo: CoinInfo;
+
+  // default selected coinId and selected vsCurrency
   selectedCoinId: string = "coindeal-token"
   vsCurrency: string = "usd";
-  vsCurrencyInfo: CoinInfo;
 
   constructor(private coingeckoService: CoingeckoService) {
     this.getVsCurrencies();
