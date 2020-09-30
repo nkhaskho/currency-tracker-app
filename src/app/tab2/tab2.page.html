@@ -1,17 +1,63 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="warning">
+    <ion-grid>
+      <ion-row justify-content-center>
+        <ion-title>Bitcoin</ion-title>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-grid *ngIf="bitcoinInfo ; else loading">
+    <br>
+    <ion-row justify-content-center>
+      <ion-col>
+        <ion-item>
+          <ion-label>VS Currency : </ion-label>
+          <ion-select [(ngModel)]="vsCurrency" (ionChange)="callCoingeckoService()">
+            <ion-select-option *ngFor="let coin of coins" value="{{coin.toUpperCase()}}">{{coin.toUpperCase()}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row justify-content-center>
+      <ion-col>
+        <br>
+        <ion-img style="height: 100px;" src='{{bitcoinInfo.image}}'></ion-img>
+      </ion-col>
+    </ion-row>
+
+    <ion-row justify-content-center>
+      <ion-col>
+        <div class="ion-text-center">
+          <h3>BTC: {{bitcoinInfo.current_price}} {{vsCurrency}} </h3>
+          <div *ngIf="bitcoinInfo.price_change_percentage_24h > 0">
+            <ion-icon color="success" name="arrow-up-circle"></ion-icon>
+            <h6 class="success">Up by {{bitcoinInfo.price_change_percentage_24h}}% (last 24 Hours)</h6>
+          </div>
+          <div *ngIf="bitcoinInfo.price_change_percentage_24h <= 0">
+            <ion-icon color="danger" name="arrow-down-circle"></ion-icon>
+            <h6 color="danger">{{bitcoinInfo.price_change_percentage_24h}}% </h6>
+          </div>
+          <div>
+            <h6>The current circulating supply is {{bitcoinInfo.circulating_supply}} coin.</h6>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row justify-content-center class="ion-mergin-vertical">
+      <ion-col class="ion-text-center">
+        <ion-button fill="outline" color="warning" shape="round" (click)="callCoingeckoService()">
+          <ion-icon slot="icon-only" name="refresh"></ion-icon>Refresh
+        </ion-button>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+
 </ion-content>
